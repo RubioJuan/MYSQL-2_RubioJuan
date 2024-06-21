@@ -319,6 +319,286 @@ delimiter ;
 
 call listar_nombre_gasto_2_menor;
 
+-- 20. Devuelve una lista con 5 filas a partir de la tercera fila de la tabla empleado. La
+-- tercera fila se debe incluir en la respuesta. La respuesta debe incluir todas las
+-- columnas de la tabla empleado.
+
+delimiter //
+create procedure lista_cinco_filas()
+begin
+	select *
+    from empleado
+    limit 5 offset 2;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call lista_cinco_filas;
+
+-- 21. Devuelve una lista con el nombre de los departamentos y el presupuesto, de
+-- aquellos que tienen un presupuesto mayor o igual a 150000 euros.
+
+delimiter //
+create procedure nombre_dep_pres_mayor_o_igual()
+begin
+	select nombre, presupuesto
+    from departamento
+    where presupuesto >= 150000;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call nombre_dep_pres_mayor_o_igual;
+
+-- 22. Devuelve una lista con el nombre de los departamentos y el gasto, de
+-- aquellos que tienen menos de 5000 euros de gastos. 
+
+delimiter //
+create procedure nombre_dep_gas_menor_o_igual()
+begin
+	select nombre, gastos
+    from departamento
+    where gastos < 5000;
+end //
+delimiter ;
+
+drop procedure nombre_dep_gas_menor_o_igual;
+
+-- Llamado del procedimiento
+
+call nombre_dep_gas_menor_o_igual;
+
+-- 23. Devuelve una lista con el nombre de los departamentos y el presupuesto, de
+-- aquellos que tienen un presupuesto entre 100000 y 200000 euros. Sin
+-- utilizar el operador BETWEEN.
+
+delimiter //
+create procedure nombre_departamentos_presupuestos()
+begin
+	select nombre, presupuesto
+    from departamento 
+    where presupuesto >= 100000 and presupuesto <= 200000;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call nombre_departamentos_presupuestos;
+
+-- 24. Devuelve una lista con el nombre de los departamentos que no tienen un
+-- presupuesto entre 100000 y 200000 euros. Sin utilizar el operador BETWEEN.
+
+delimiter //
+create procedure nombre_departamentos_presupuestos_no()
+begin 
+	select nombre, presupuesto
+    from departamento 
+    where presupuesto < 100000 or presupuesto > 200000;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call nombre_departamentos_presupuestos_no;
+
+
+-- 25.Devuelve una lista con el nombre de los departamentos que tienen un
+-- presupuesto entre 100000 y 200000 euros. Utilizando el operador BETWEEN.
+
+delimiter //
+create procedure nombre_departamentos_presupuestos_between()
+begin 
+	select nombre, presupuesto
+    from departamento 
+    where presupuesto between 100000 and 200000;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call nombre_departamentos_presupuestos_between;
+
+-- 26.Devuelve una lista con el nombre de los departamentos que no tienen un
+-- presupuesto entre 100000 y 200000 euros. Utilizando el operador BETWEEN.
+
+delimiter //
+create procedure nombre_departamentos_presupuestos_between_no()
+begin 
+	select nombre, presupuesto
+    from departamento 
+    where presupuesto not between 100000 and 200000;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call nombre_departamentos_presupuestos_between_no;
+
+-- 27. Devuelve una lista con el nombre de los departamentos, gastos y
+-- presupuesto, de aquellos departamentos donde los gastos sean mayores
+-- que el presupuesto del que disponen.
+
+delimiter //
+create procedure gastos_mayores()
+begin
+	select nombre, gastos, presupuesto
+    from departamento
+    where gastos > presupuesto;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call gastos_mayores;
+
+-- 28. Devuelve una lista con el nombre de los departamentos, gastos y
+-- presupuesto, de aquellos departamentos donde los gastos sean menores
+-- que el presupuesto del que disponen.
+
+delimiter //
+create procedure gastos_menores()
+begin
+	select nombre, gastos, presupuesto
+    from departamento
+    where gastos < presupuesto;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call gastos_menores;
+
+-- 29. Devuelve una lista con el nombre de los departamentos, gastos y
+-- presupuesto, de aquellos departamentos donde los gastos sean iguales al
+-- presupuesto del que disponen.
+
+delimiter //
+create procedure gastos_iguales()
+begin
+	select nombre, gastos, presupuesto
+    from departamento
+    where gastos = presupuesto;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call gastos_iguales;
+
+-- 30. Lista todos los datos de los empleados cuyo segundo apellido sea NULL.
+
+delimiter //
+create procedure apellido_2_null()
+begin
+	select *
+    from empleado
+    where apellido2 is null;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call apellido_2_null;
+
+-- 31. Lista todos los datos de los empleados cuyo segundo apellido no sea NULL.
+
+delimiter //
+create procedure apellido_2_not_null()
+begin
+	select *
+    from empleado
+    where apellido2 is not null;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call apellido_2_not_null;
+
+-- 32. Lista todos los datos de los empleados cuyo segundo apellido sea López.
+
+delimiter //
+create procedure apellido_2_lopez()
+begin
+	select *
+    from empleado
+    where apellido2 = 'lópez';
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call apellido_2_lopez;
+
+-- 33. Lista todos los datos de los empleados cuyo segundo apellido
+-- sea Díaz o Moreno. Sin utilizar el operador IN.
+
+delimiter //
+create procedure apellido_2_diaz_moreno()
+begin
+	select *
+    from empleado
+    where (apellido2 = 'Díaz') or (apellido2 = 'Moreno');
+end //
+delimiter ;
+
+drop procedure apellido_2_diaz_moreno;
+-- Llamado del procedimiento
+
+call apellido_2_diaz_moreno;
+
+-- 34. Lista todos los datos de los empleados cuyo segundo apellido
+-- sea Díaz o Moreno. Utilizando el operador IN.
+
+delimiter //
+create procedure apellido_2_diaz_moreno_in()
+begin
+	select *
+    from empleado
+    where apellido2 in ('Díaz', 'Moreno');
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call apellido_2_diaz_moreno_in;
+
+
+-- 35. Lista los nombres, apellidos y nif de los empleados que trabajan en el
+-- departamento 3.
+
+-- 35. Lista los nombres, apellidos y nif de los empleados que trabajan en el departamento 3.
+
+delimiter //
+create procedure empleados_departamento_3()
+begin
+    select nombre, apellido1, apellido2, nif
+    from empleado
+    where id_departamento = 3;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call empleados_departamento_3;
+
+-- 36. Lista los nombres, apellidos y nif de los empleados que trabajan en los departamentos 2, 4 o 5.
+
+delimiter //
+create procedure empleados_departamentos_2_4_5()
+begin
+    select nombre, apellido1, apellido2, nif
+    from empleado
+    where id_departamento IN (2, 4, 5);
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call empleados_departamentos_2_4_5;
+
 -- ####################################################
 -- ###  Consultas multitabla (Composición interna)  ###
 -- ####################################################
@@ -497,7 +777,6 @@ call listar_empleados_departamentos_especificos();
 -- departamentos que no tienen un presupuesto entre 100000 y 200000 euros.
 
 delimiter //
-
 create procedure listar_empleados_departamentos_presupuesto_no_rango()
 begin
     select e.nombre, e.apellido1, e.apellido2
@@ -505,7 +784,6 @@ begin
     join departamento d on e.id_departamento = d.id
     where d.presupuesto not between 100000 and 200000;
 end //
-
 delimiter ;
 
 -- Llamado al procedimiento listar_empleados_departamentos_presupuesto_no_rango
@@ -516,7 +794,6 @@ call listar_empleados_departamentos_presupuesto_no_rango();
 -- debe mostrar nombres de departamentos que estén repetidos.
 
 delimiter //
-
 create PROCEDURE listar_departamentos_empleados_sin_apellido2()
 begin
     select distinct d.nombre
@@ -524,7 +801,6 @@ begin
     join empleado e on d.id = e.id_departamento
     where e.apellido2 is null;
 end //
-
 delimiter ;
 
 -- Llamado al procedimiento listar_departamentos_empleados_sin_apellido2
