@@ -236,20 +236,19 @@ call listar_departamentos_desc();
 -- alfabética tendiendo en cuenta en primer lugar sus apellidos y luego su nombre.
 
 delimiter //
-
-create procedure listas_apelidos_nombres_empleados()
+create procedure listas_apellidos_nombres_empleados()
 begin
-    select apellido1, ' ', apellido2, '', nombre
-	from empleado;
+    select concat(apellido1, ' ', apellido2, ', ', nombre) as nombre_completo
+    from empleado
+    order by apellido1, apellido2, nombre;
 end //
-
 delimiter ;
 
-drop procedure listas_apelidos_nombres_empleados;
+drop procedure listas_apellidos_nombres_empleados;
 
 -- Llamado del procedimiento 
 
-call listas_apelidos_nombres_empleados;
+call listas_apellidos_nombres_empleados;
 
 -- 16. Devuelve una lista con el nombre y el presupuesto, de los 3 departamentos que tienen mayor presupuesto.
 
@@ -265,8 +264,60 @@ delimiter ;
 
  drop procedure lista_nombre_y_presupuesto;
 
+-- Llamado del procedimiento 
+
 call lista_nombre_y_presupuesto ;
 
+-- 17. Devuelve una lista con el nombre y el presupuesto, de los 3 departamentos
+-- que tienen menor presupuesto.
+
+delimiter //
+create procedure lista_nombre_y_presupuesto_menor()
+begin
+	select nombre, presupuesto
+    from departamento
+    order by presupuesto asc 
+    limit 3;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call lista_nombre_y_presupuesto_menor;
+
+-- 18. Devuelve una lista con el nombre y el gasto, de los 2 departamentos que tienen mayor gasto.
+
+delimiter //
+create procedure listar_nombre_gasto_2_mayor()
+begin
+	select nombre, gastos
+    from departamento
+    order by gastos desc
+    limit 2;
+end //
+delimiter ;
+
+drop procedure listar_nombre_gasto_2_mayor;
+
+-- Llamado del procedimiento
+
+call listar_nombre_gasto_2_mayor;
+
+-- 19. Devuelve una lista con el nombre y el gasto, de los 2 departamentos que tienen menor gasto.
+
+delimiter //
+create procedure listar_nombre_gasto_2_menor()
+begin
+	select nombre, gastos
+    from departamento
+    order by gastos asc
+    limit 2;
+end //
+delimiter ;
+
+-- Llamado del procedimiento
+
+call listar_nombre_gasto_2_menor;
 
 -- ####################################################
 -- ###  Consultas multitabla (Composición interna)  ###
