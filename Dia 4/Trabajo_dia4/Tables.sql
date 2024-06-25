@@ -79,6 +79,4 @@ CREATE TABLE alquileres (
     FOREIGN KEY (id_sucursal_llegada) REFERENCES sucursales(id_sucursal)
 );
 
-
-
 -- Desarrollado por Juan Felipe Rubio Sanabria / ID.1.146.334.004
