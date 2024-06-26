@@ -6,7 +6,7 @@ use trabajo_dia4;
 
 -- • Consulta de disponibilidad de vehículos para alquiler por tipo de vehículo, rango de
 -- precios de alquiler y fechas de disponibilidad.
-
+    
 select v.id_vehiculo, v.tipo_vehiculo, v.placa, v.referencia, v.modelo, v.color, a.valor_alquiler_semana, a.valor_alquiler_dia
 from vehiculos v
 left join alquileres a on v.id_vehiculo = a.id_vehiculo
